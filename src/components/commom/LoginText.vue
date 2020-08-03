@@ -1,12 +1,30 @@
 <template>
   <div>
-    <van-field v-model="text" :label="label" :type="type" :placeholder="placeholder" :rule="rule"></van-field>
+    <van-field v-model="content" :label="label" :type="type" :placeholder="placeholder" :rule="rule"></van-field>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['label']
+  data () {
+    return {
+      content: ''
+    }
+  },
+  props: ['label', 'type', 'placeholder', 'rule'],
+  methods: {
+    handlerulg () {
+      const rue = new RegExp(this.rule)
+      if (rue.test(this.content)) {
+        this.$emit('inputChange', this.content)
+      }
+    }
+  },
+  watch: {
+    content () {
+      this.handlerulg()
+    }
+  }
 }
 </script>
 
